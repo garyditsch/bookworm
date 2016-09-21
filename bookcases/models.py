@@ -11,9 +11,9 @@ class Bookcase(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self, id):
+    def get_absolute_url(self):
         return reverse('bookcases:bookcase_detail', kwargs={'id': self.pk})
-        
+
 
 
 class Bookshelf(models.Model):
