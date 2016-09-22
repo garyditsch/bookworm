@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.db.models import Count
-from .models import Bookcase
+from .models import Bookcase, Bookshelf 
 
 def bookcase_list(request):
-    bookcases = Bookcase.objects.annotate(self_count=Count('bookshelf')).all()
+    bookcases = Bookcase.objects.annotate(shelf_count=Count('bookshelf')).all()
 
     context = {
         "bookcases": bookcases
@@ -25,4 +25,14 @@ def bookcase_detail(request, id):
 
 
 def bookshelf_detail(request, id):
-    return HttpResponse("Bookshelf {}".format(id))
+    query_set = Bookshelf.objects.annotate(book_count=Count('book'))
+    bookshelf = get_object_or_404(query_set, pk=id)
+
+    books = bookshelf.book_set.all()
+
+    context = {
+        "bookshelf": bookshelf, 
+        "books": books,
+    }
+
+    return render(request, "bookcases/bookshelf_detail.html", context)

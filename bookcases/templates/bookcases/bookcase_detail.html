@@ -1,6 +1,6 @@
 {% extends "core/base.html"  %}
-{%block content%}
-    <h2>{{bookcase.name}}
+{% block content %}
+    <h2>{{ bookcase.name }}
     <hr>
     </h2>
     <p class="lead">{{ bookcase.description }}</p>
@@ -11,12 +11,12 @@
                 <li class="list-group-item">
                     <div class="pull-right">
                       <span class="badge">
-                        {{ bookshelf.book_count }} book {{ bookshelf.book_count|pluralize}}
+                        {{ bookshelf.book_count }} book {{ bookshelf.book_count|pluralize }}
                       </span>
-                    <<a href="{{bookshelf.get_absolute_url}}">
+                    </div>
+                    <a href="{{bookshelf.get_absolute_url}}">
                     {{ bookshelf.shelf_label }}
                     </a>
-                    </div>
                 </li>
             {% endfor %}
 
