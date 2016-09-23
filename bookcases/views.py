@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.db.models import Count
 from django.core.urlresolvers import reverse
 from .models import Bookcase, Bookshelf 
+from .forms import BookcaseForm
+from django.contrib import messages
 
 def bookcase_list(request):
     bookcases = Bookcase.objects.annotate(shelf_count=Count('bookshelf')).all()
@@ -17,6 +19,24 @@ def bookcase_list(request):
     }
 
     return render(request, "bookcases/bookcase_list.html", context)
+
+def bookcase_edit(request, id):
+    bookcase = get_object_or_404(Bookcase, pk=id)
+
+    if request.method == "POST":
+        form = BookcaseForm(request.POST, instance=bookcase)
+        if form.is_valid():
+            bookcase = form.save()
+            messages.success(request, "Bookcase updated!")
+            return redirect('bookcases:bookcase_detail', id=bookcase.pk)
+    else:
+        form=BookcaseForm(instance=bookcase)
+
+    context = {
+        "form": form, 
+        "bookcase": bookcase 
+    }
+    return render(request, "bookcases/bookcase_edit.html", context)
 
 def bookcase_detail(request, id):
     bookcase = get_object_or_404(Bookcase, pk=id)
@@ -34,6 +54,21 @@ def bookcase_detail(request, id):
     }
 
     return render(request, "bookcases/bookcase_detail.html", context)
+
+def bookcase_new(request):
+    if request.method == "POST":
+        form = BookcaseForm(request.POST)
+        if form.is_valid():
+            bookcase = form.save()
+            messages.success(request, "Bookcase created!")
+            return redirect('bookcases:bookcase_detail', id=bookcase.pk)
+    else:
+        form=BookcaseForm()
+
+    context = {
+        "form": form, 
+    }
+    return render(request, "bookcases/bookcase_edit.html", context)
 
 
 def bookshelf_detail(request, id):

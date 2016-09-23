@@ -1,6 +1,12 @@
 {% extends "core/base.html"  %}
 {% block content %}
-    <h2>{{ bookcase.name }}
+    <h2>
+        <div class="pull-right">
+            <a href="{% url 'bookcases:bookcase_edit' bookcase.pk %}">
+            <i class="fa fa-pencil-square"></i>
+            </a>
+        </div>
+    {{ bookcase.name }}
     <hr>
     </h2>
     <p class="lead">{{ bookcase.description }}</p>
