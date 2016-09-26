@@ -29,6 +29,9 @@
         </ul>
 
     {% else %}
-        <p> No bookshelves</p>
+        <p> No bookshelves for this bookcase</p>
     {% endif %}
+    <div class="btn btn-primary btn-block btn-lg">
+        <a href="{% url 'bookcases:bookshelf_new' bookcase.pk %}">Add a bookshelf</a>
+    </div>
 {% endblock content%}

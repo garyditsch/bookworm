@@ -31,6 +31,13 @@ body {
     min-height: auto;
 }
 
+.index-content form {
+    margin-bottom: 24px;
+}
+
+.indext-content input {
+    text-align: center;
+}
 
 .book-cover {
    margin: 0 auto;

@@ -26,6 +26,13 @@
                 <a href="{% url 'core:index' %} " class="navbar-brand">
                     <i class="fa fa-book" aria-hidden="true"> Bookworm</i>
                 </a>
+              <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                {% endif %}
+              </ul>
             </div>
           </div>
         </nav>
