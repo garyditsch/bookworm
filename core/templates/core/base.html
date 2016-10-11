@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>
         {% block title %}
             Bookworm
@@ -13,40 +16,64 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+
+    <script src="https://use.fontawesome.com/a04d9e4c1c.js"></script>
+
     <link rel="stylesheet" type="text/css" href="{% static 'core/styles.css' %}" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+
+        <nav class="navbar navbar-default navbar-fixed-top">
           <div class="container">
             <div class="navbar-header">
-                <a href="{% url 'core:index' %}" class="navbar-brand">
-                    Bookworm
+                <a href="{% url 'core:index' %} " class="navbar-brand">
+                    <i class="fa fa-book" aria-hidden="true"> Bookworm</i>
                 </a>
+              <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                {% endif %}
+              </ul>
             </div>
           </div>
         </nav>
     </header>
     <div class="container">
+
+     <div class="{% block content_classes %}main-content{% endblock content_classes %}">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         {% if breadcrumbs %}
             <ol class="breadcrumb">
-                <li><a href="{% url 'core:index' %}">Home</a></li>
-                {% for breadcrumb in breadcrumbs %}
-                    <li>
-                        {% if breadcrumb.1 %}
-                            <a href="{% url 'bookcases:bookcase_list' %}">
-                        {% endif %}
-                        {{ breadcrumb.0 }}
-                        {% if breadcrumb.1 %}
-                            </a>
-                        {% endif %}
-                    </li>
-                {% endfor %}
+              <li><a href="{% url 'core:index' %}">Home</a></li>
+              {% for breadcrumb in breadcrumbs %}
+                <li>   
+                    {% if breadcrumb.1 %}
+                        <a href="{{breadcrumb.1}}">
+                    {% endif %}
+                    {{breadcrumb.0}}
+                    {% if breadcrumb.1 %}
+                        </a>
+                    {% endif %}
+                </li>
+              {% endfor %}
+              
+
             </ol>
         {% endif %}
         {% block content %}
 
         {% endblock %}
+
+      </div>
     </div>
     <footer class="page-footer">
         <hr>

@@ -1,27 +1,46 @@
-body{
+
+body {
     padding-top: 70px;
     padding-bottom: 70px;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/7b/Bkwm.jpeg");
+    background-repeat: no-repeat;
 }
 
 .page-footer {
     position: fixed;
     bottom: 0;
-    background-color: #fff;
+
     width: 100%;
-}
-
-.jumbotron-index {
-    text-align: center;
-}
-
-.book-thumbnail {
     background-color: #eee;
 }
 
-.book-thumbnail .caption {
-    background-color: #fff;
-    margin-top: 4px;
+.page-footer hr {
+    margin-top: 0;
+    border-color: #aaa;
 }
-.book-thumbnail .book-cover {
-    min-height: 240px;
+
+.main-content {
+    background: rgba(255, 255, 255, 0.7);
+    /*background-color: #fff;*/
+    padding: 20px;
+    border: 1px solid #ddd;
+    min-height: 80vh;
+    border-radius: 2px;
+}
+
+.index-content {
+    margin-top: 40vh
+    min-height: auto;
+}
+
+.index-content form {
+    margin-bottom: 24px;
+}
+
+.indext-content input {
+    text-align: center;
+}
+
+.book-cover {
+   margin: 0 auto;
 }

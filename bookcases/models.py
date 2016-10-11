@@ -26,4 +26,4 @@ class Bookshelf(models.Model):
         return "{} in {}".format(self.shelf_label, self.bookcase.name)
 
     def get_absolute_url(self):
-        return reverse('bookcases:bookshelf_detail', args=[self.pk])
+        return reverse('bookcases:bookshelf_detail', kwargs={'id': self.pk})

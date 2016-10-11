@@ -1,23 +1,38 @@
-{% extends "core/base.html" %}
-
+{% extends "core/base.html"  %}
 {% block content %}
     <h2>
-        {{bookcase.name}}
+        <div class="pull-right">
+            <a href="{% url 'bookcases:bookcase_edit' bookcase.pk %}">
+            <i class="fa fa-pencil-square"></i>
+            </a>
+        </div>
+    {{ bookcase.name }}
+    <hr>
     </h2>
-    
-    <ul class="list-group">
-        {% for bookshelf in bookshelves %}
-            <li class="list-group-item">
-                <div class="pull-right">
-                    <span class="badge">
-                        {{bookshelf.book_count}}
-                        book{{bookshelf.book_count|pluralize}}
-                    </span>
-                </div>
-                <a href="{{bookshelf.get_absolute_url}}">
-                    {{bookshelf.shelf_label}}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-{% endblock content %}
+    <p class="lead">{{ bookcase.description }}</p>
+    {% if bookshelves %}
+
+        <ul class="list-group">
+            {% for bookshelf in bookshelves %}
+                <li class="list-group-item">
+                    <div class="pull-right">
+                      <span class="badge">
+                        {{ bookshelf.book_count }} book {{ bookshelf.book_count|pluralize }}
+                      </span>
+                    </div>
+                    <a href="{{bookshelf.get_absolute_url}}">
+                    {{ bookshelf.shelf_label }}
+                    </a>
+                </li>
+            {% endfor %}
+
+        </ul>
+
+    {% else %}
+        <p> No bookshelves for this bookcase</p>
+    {% endif %}
+    <div class="btn btn-primary btn-block btn-lg">
+        <a href="{% url 'bookcases:bookshelf_new' bookcase.pk %}">Add a bookshelf</a>
+    </div>
+{% endblock content%}
+
